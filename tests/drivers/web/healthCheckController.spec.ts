@@ -59,7 +59,7 @@ describe('HealthCheckController', () => {
 
             expect(res.status).toHaveBeenCalledWith(500)
             expect(res.json).toHaveBeenCalledWith({
-                error: 'Failed to check sales health',
+                error: 'Failed to check vehicle manager health',
             })
         })
 
@@ -75,7 +75,7 @@ describe('HealthCheckController', () => {
 
             expect(res.status).toHaveBeenCalledWith(500)
             expect(res.json).toHaveBeenCalledWith({
-                error: 'Failed to check sales health',
+                error: 'Failed to check vehicle manager health',
             })
         })
     })
