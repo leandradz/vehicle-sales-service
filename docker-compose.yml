@@ -1,0 +1,35 @@
+services:
+  vehicle-manager-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3002:3002'
+    environment:
+      DYNAMODB_ENDPOINT: http://localstack:4566
+      AWS_REGION: us-east-1
+      DYNAMODB_TABLE: Vehicles
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    depends_on:
+      - localstack
+    command: sh -c "wait-port localstack:4566 && node /app/scripts/createTable.js && npm start"
+    networks:
+      - vehicle-network
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - '4566:4566'
+    environment:
+      - SERVICES=dynamodb
+    volumes:
+      - localstack_data:/var/lib/localstack
+    networks:
+      - vehicle-network
+
+networks:
+  vehicle-network:
+
+volumes:
+  localstack_data:
