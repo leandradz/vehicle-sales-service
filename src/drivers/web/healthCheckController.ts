@@ -13,7 +13,7 @@ export class HealthCheckController {
 
     public setupRoutes(): Router {
         this.router.get('/', this.healthCheck.bind(this))
-        this.router.get('/vehicle', this.vehicleHealthCheck.bind(this))
+        this.router.get('/vehicle', this.vehiclesHealthCheck.bind(this))
         return this.router
     }
 
