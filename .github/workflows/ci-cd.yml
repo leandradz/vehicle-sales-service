@@ -49,3 +49,8 @@ jobs:
 
             - name: Run tests
               run: npm test
+
+            - name: Run SonarQube analysis
+              env:
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              run: sonar-scanner -Dsonar.login=$SONAR_TOKEN
