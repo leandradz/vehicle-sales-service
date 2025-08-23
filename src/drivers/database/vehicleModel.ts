@@ -44,7 +44,7 @@ export class DynamoVehicleRepository implements VehicleRepository {
         vehicle: Partial<Vehicle>
     ): Promise<Vehicle> {
         const updateExp: string[] = []
-        const expAttrValues: Record<string, any> = {}
+        const expAttrValues: Record<string, unknown> = {}
         for (const key in vehicle) {
             if (key === 'id') continue // Não atualize a chave primária!
             updateExp.push(`${key} = :${key}`)
