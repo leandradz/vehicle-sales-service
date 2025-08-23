@@ -1,7 +1,7 @@
-import { Vehicle } from '../entities/vehicle'
+import { Sale } from '../entities/sale'
 
 export interface SalesRepository {
-    create(vehicle: Vehicle): Promise<Vehicle>
-    update(id: string, vehicle: Vehicle): Promise<Vehicle>
-    get(id: string): Promise<Vehicle | null>
+    create(sale: Sale): Promise<Sale>
+    update(id: string, sale: Sale): Promise<Sale>
+    get(id: string): Promise<Sale | null>
 }

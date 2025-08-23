@@ -1,11 +1,10 @@
 import { Router, Request, Response } from 'express'
 import { SalesUseCase } from '../../useCases/sales'
-import { Vehicle } from '../../domain/entities/vehicle'
 
 export class SalesController {
     private readonly routes: Router
 
-    constructor(private readonly VehicleUseCase: SalesUseCase) {
+    constructor(private readonly SalesUseCase: SalesUseCase) {
         this.routes = Router()
     }
 
@@ -18,76 +17,60 @@ export class SalesController {
 
     public async create(req: Request, res: Response): Promise<void> {
         try {
-            const data = req.body
-            if (
-                !data.brand ||
-                !data.model ||
-                !data.fabricationDate ||
-                !data.color ||
-                !data.price
-            ) {
-                throw new Error('All fields are required')
+            const { vehicleId, clientDocument } = req.body
+
+            if (!vehicleId || !clientDocument) {
+                throw new Error(
+                    'vehicleId and clientDocument fields are required'
+                )
             }
-            const tempId = data.id || ''
-            const vehicle = new Vehicle(
-                tempId,
-                data.brand,
-                data.model,
-                data.fabricationDate,
-                data.color,
-                data.price,
-                data.isAvailable ?? false,
-                data.clientDocument ?? null,
-                data.saleDate ?? null
+
+            const result = await this.SalesUseCase.create(
+                vehicleId,
+                clientDocument
             )
-            const result = await this.VehicleUseCase.create(vehicle)
+
             res.status(201).json(result)
         } catch (error) {
-            console.log('Failed to create vehicle', error)
-            res.status(500).json({ error: 'Failed to create vehicle' })
+            console.log('Failed to create sale', error)
+            res.status(500).json({ error: 'Failed to create sale' })
         }
     }
 
     public async update(req: Request, res: Response): Promise<void> {
         try {
-            const { vehicleId } = req.params
+            const { saleId } = req.params
             const newData = req.body
-            const vehicleFound = await this.VehicleUseCase.findById(vehicleId)
-            if (!vehicleFound) {
-                throw new Error('Vehicle not found')
+            const saleFound = await this.SalesUseCase.findById(saleId)
+            if (!saleFound) {
+                throw new Error('Sale not found')
             }
-            const updatedVehicle = new Vehicle(
-                vehicleId,
-                newData.brand ?? vehicleFound.brand,
-                newData.model ?? vehicleFound.model,
-                newData.fabricationDate ?? vehicleFound.fabricationDate,
-                newData.color ?? vehicleFound.color,
-                newData.price ?? vehicleFound.price,
-                newData.isAvailable ?? vehicleFound.isAvailable,
-                newData.clientDocument ?? vehicleFound.clientDocument,
-                newData.saleDate ?? vehicleFound.saleDate
-            )
-            const result = await this.VehicleUseCase.update(updatedVehicle)
+
+            const updatedSale = {
+                ...saleFound,
+                ...newData,
+            }
+            const result = await this.SalesUseCase.update(updatedSale)
             res.status(200).json(result)
         } catch (error) {
-            console.log('Failed to update vehicle', error)
-            res.status(500).json({ error: 'Failed to update vehicle' })
+            console.log('Failed to update sale', error)
+            res.status(500).json({ error: 'Failed to update sale' })
         }
     }
 
     public async findById(req: Request, res: Response): Promise<void> {
         try {
-            const { vehicleId } = req.params
-            const vehicleFound = await this.VehicleUseCase.findById(vehicleId)
-            if (!vehicleFound) {
-                res.status(404).json({ error: 'Vehicle not found' })
+            const { saleId } = req.params
+            const saleFound = await this.SalesUseCase.findById(saleId)
+            if (!saleFound) {
+                res.status(404).json({ error: 'Sale not found' })
                 return
             }
 
-            res.status(200).json(vehicleFound)
+            res.status(200).json(saleFound)
         } catch (error) {
-            console.log('Failed to search vehicle', error)
-            res.status(500).json({ error: 'Failed to search vehicle' })
+            console.log('Failed to search sale', error)
+            res.status(500).json({ error: 'Failed to search sale' })
         }
     }
 }

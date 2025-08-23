@@ -1,0 +1,5 @@
+export const STATUS = {
+    AWAITING_PAYMENT: 'AWAITING_PAYMENT',
+    PAID: 'PAID',
+    CANCELLED: 'CANCELLED',
+}

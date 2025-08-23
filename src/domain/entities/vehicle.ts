@@ -8,7 +8,9 @@ export class Vehicle {
         public price: number,
         public isAvailable: boolean = false,
         public clientDocument: string | null = null,
-        public saleDate: Date | null = null
+        public saleDate: string | null = null,
+        public status: string | null = null,
+        public saleId: string | null = null
     ) {
         this.id = id
         this.brand = brand
@@ -19,5 +21,7 @@ export class Vehicle {
         this.isAvailable = isAvailable
         this.clientDocument = clientDocument
         this.saleDate = saleDate
+        this.status = status
+        this.saleId = saleId
     }
 }
