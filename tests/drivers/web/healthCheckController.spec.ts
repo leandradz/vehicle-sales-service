@@ -33,7 +33,7 @@ describe('HealthCheckController', () => {
                 json: async () => ({ status: 'OK' }),
             })
 
-            await healthCheckController.salesHealthCheck(
+            await healthCheckController.vehiclesHealthCheck(
                 req as Request,
                 res as Response
             )
@@ -52,7 +52,7 @@ describe('HealthCheckController', () => {
                 status: 500,
             })
 
-            await healthCheckController.salesHealthCheck(
+            await healthCheckController.vehiclesHealthCheck(
                 req as Request,
                 res as Response
             )
@@ -68,7 +68,7 @@ describe('HealthCheckController', () => {
                 .fn()
                 .mockRejectedValue(new Error('Network error'))
 
-            await healthCheckController.salesHealthCheck(
+            await healthCheckController.vehiclesHealthCheck(
                 req as Request,
                 res as Response
             )
