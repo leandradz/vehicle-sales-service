@@ -6,9 +6,9 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Fase 4: Vehicle Manager Service API',
+            title: 'Fase 4: Vehicle Sales Service API',
             version: '1.0.0',
-            description: 'Fase 4: API para gerenciar cadastro de veículos',
+            description: 'Fase 4: API para gerenciar vendas de veículos',
         },
     },
     apis: ['./src/drivers/web/*.ts'],

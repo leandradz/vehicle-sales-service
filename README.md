@@ -31,8 +31,8 @@ Para iniciar o projeto, você precisará ter o Docker e o Docker Compose instala
 1. Clone o repositório:
 
 <!-- ```bash
-   git clone git@github.com:
-   cd vehicle-manager-service
+   git clone git@github.com:leandradz/vehicle-sales-service.git
+   cd vehicle-sales-service
 ``` -->
 
 2. Construa e inicie os containers:
@@ -43,8 +43,8 @@ Para iniciar o projeto, você precisará ter o Docker e o Docker Compose instala
     docker-compose up --build
 ```
 
-3. Acesse a aplicação em http://localhost:3002
+3. Acesse a aplicação em http://localhost:3001
 
 ## Documentação da API
 
-A documentação das APIs está disponível via Swagger. Após iniciar o projeto, você pode acessá-la em http://localhost:3002/api-docs.
+A documentação das APIs está disponível via Swagger. Após iniciar o projeto, você pode acessá-la em http://localhost:3001/api-docs.

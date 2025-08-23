@@ -1,4 +1,4 @@
-import { VehicleRepository } from '../../domain/interface/vehicleRepository'
+import { SalesRepository } from '../../domain/interface/salesRepository'
 import { Vehicle } from '../../domain/entities/vehicle'
 import { DynamoConnection } from '../../config/dynamoConfig'
 import {
@@ -12,9 +12,9 @@ import crypto from 'crypto'
 
 const client = DynamoConnection.getInstance().getClient()
 const ddbDocClient = DynamoDBDocumentClient.from(client)
-const TABLE_NAME = process.env.DYNAMODB_TABLE || 'Vehicles'
+const TABLE_NAME = process.env.DYNAMODB_TABLE || 'Sales'
 
-export class DynamoVehicleRepository implements VehicleRepository {
+export class DynamoSalesRepository implements SalesRepository {
     async create(vehicle: Vehicle): Promise<Vehicle> {
         const vehicleData = {
             ...vehicle,

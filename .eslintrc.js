@@ -17,4 +17,7 @@ module.exports = {
             typescript: {},
         },
     },
+    env: {
+        node: true,
+    },
 }

@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express'
-import { VehicleUseCase } from '../../useCases/vehicle'
+import { SalesUseCase } from '../../useCases/sales'
 import { Vehicle } from '../../domain/entities/vehicle'
 
-export class VehicleController {
+export class SalesController {
     private readonly routes: Router
 
-    constructor(private readonly VehicleUseCase: VehicleUseCase) {
+    constructor(private readonly VehicleUseCase: SalesUseCase) {
         this.routes = Router()
     }
 

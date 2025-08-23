@@ -1,10 +1,10 @@
 import express from 'express'
 import { HealthCheckController } from './drivers/web/healthCheckController'
-import { VehicleController } from './drivers/web/vehicleController'
+import { SalesController } from './drivers/web/salesController'
 import swaggerRouter from './config/swaggerConfig'
 import { HealthCheckUseCase } from './useCases/healthCheck'
-import { DynamoVehicleRepository } from './drivers/database/vehicleModel'
-import { VehicleUseCase } from './useCases/vehicle'
+import { DynamoSalesRepository } from './drivers/database/vehicleModel'
+import { SalesUseCase } from './useCases/sales'
 
 class InitProject {
     public express: express.Application
@@ -24,12 +24,12 @@ class InitProject {
     }
 
     setupRoutes() {
-        // Vehicle configuration
-        const vehicleRepository = new DynamoVehicleRepository()
-        const vehicleUseCase = new VehicleUseCase(vehicleRepository)
-        const vehicleController = new VehicleController(vehicleUseCase)
+        // Sales configuration
+        const salesRepository = new DynamoSalesRepository()
+        const salesUseCase = new SalesUseCase(salesRepository)
+        const salesController = new SalesController(salesUseCase)
 
-        this.express.use('/vehicles', vehicleController.setupRoutes())
+        this.express.use('/sales', salesController.setupRoutes())
 
         // Health Check and Swagger configuration
         const healthCheckUseCase = new HealthCheckUseCase()
@@ -41,7 +41,7 @@ class InitProject {
     }
 
     startServer() {
-        const PORT = 3002
+        const PORT = 3001
         this.express.listen(PORT, () => {
             console.log(`Servidor rodando na porta ${PORT}`)
         })

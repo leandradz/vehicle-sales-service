@@ -9,6 +9,6 @@ RUN npm install
 COPY scripts/createTable.js /app/scripts/createTable.js
 COPY src ./src
 
-EXPOSE 3002
+EXPOSE 3001
 
 CMD ["sh", "-c", "wait-port localstack:4566 && node /app/scripts/createTable.js && npm start"]

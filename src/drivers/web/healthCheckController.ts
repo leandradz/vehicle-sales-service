@@ -13,7 +13,7 @@ export class HealthCheckController {
 
     public setupRoutes(): Router {
         this.router.get('/', this.healthCheck.bind(this))
-        this.router.get('/sales', this.salesHealthCheck.bind(this))
+        this.router.get('/vehicle', this.vehicleHealthCheck.bind(this))
         return this.router
     }
 
@@ -60,14 +60,14 @@ export class HealthCheckController {
 
     /**
      * @swagger
-     * /health/sales:
+     * /health/vehicle:
      *   get:
-     *     summary: Verifica a saúde do serviço de vendas
+     *     summary: Verifica a saúde do serviço de veículos
      *     tags: [Health]
-     *     description: Faz uma requisição ao serviço de vendas e retorna o status de saúde dele.
+     *     description: Faz uma requisição ao serviço de veículos e retorna o status de saúde dele.
      *     responses:
      *       200:
-     *         description: Serviço de vendas está saudável
+     *         description: Serviço de veículos está saudável
      *         content:
      *           application/json:
      *             schema:
@@ -75,7 +75,7 @@ export class HealthCheckController {
      *               example:
      *                 status: OK
      *       500:
-     *         description: Erro ao consultar a saúde do serviço de vendas
+     *         description: Erro ao consultar a saúde do serviço de veículos
      *         content:
      *           application/json:
      *             schema:
@@ -85,10 +85,13 @@ export class HealthCheckController {
      *                   type: string
      *                   example: Failed to check vendas health
      */
-    public async salesHealthCheck(req: Request, res: Response): Promise<void> {
+    public async vehiclesHealthCheck(
+        req: Request,
+        res: Response
+    ): Promise<void> {
         try {
             const response = await fetch(
-                `http://vehicle-sales-service:3001/health`,
+                `http://vehicle-manager-service:3002/health`,
                 {
                     method: 'GET',
                     headers: {
@@ -99,15 +102,17 @@ export class HealthCheckController {
 
             if (!response.ok) {
                 throw new Error(
-                    `Sales service health check failed with status ${response.status}`
+                    `Vehicle manager service health check failed with status ${response.status}`
                 )
             }
 
             const data = await response.json()
             res.status(200).json(data)
         } catch (error) {
-            console.log('Failed to check sales health', error)
-            res.status(500).json({ error: 'Failed to check sales health' })
+            console.log('Failed to check vehicle manager health', error)
+            res.status(500).json({
+                error: 'Failed to check vehicle manager health',
+            })
         }
     }
 }

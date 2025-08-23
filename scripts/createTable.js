@@ -1,7 +1,4 @@
-const {
-    DynamoDBClient,
-    CreateTableCommand,
-} = require('@aws-sdk/client-dynamodb')
+import { DynamoDBClient, CreateTableCommand } from '@aws-sdk/client-dynamodb'
 
 console.log('Iniciando script de criação de tabela...')
 
@@ -15,7 +12,7 @@ const client = new DynamoDBClient({
 })
 
 const params = {
-    TableName: process.env.DYNAMODB_TABLE || 'Vehicles',
+    TableName: process.env.DYNAMODB_TABLE || 'Sales',
     AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
     KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
     BillingMode: 'PAY_PER_REQUEST',

@@ -1,14 +1,14 @@
 services:
-    vehicle-manager-service:
+    vehicle-sales-service:
         build:
             context: .
             dockerfile: Dockerfile
         ports:
-            - '3002:3002'
+            - '3001:3001'
         environment:
             DYNAMODB_ENDPOINT: http://localstack:4566
             AWS_REGION: us-east-1
-            DYNAMODB_TABLE: Vehicles
+            DYNAMODB_TABLE: Sales
             AWS_ACCESS_KEY_ID: test
             AWS_SECRET_ACCESS_KEY: test
         depends_on:
