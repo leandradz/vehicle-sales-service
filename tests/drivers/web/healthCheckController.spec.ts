@@ -39,7 +39,7 @@ describe('HealthCheckController', () => {
             )
 
             expect(global.fetch).toHaveBeenCalledWith(
-                'http://vehicle-sales-service:3001/health',
+                'http://vehicle-manager-service:3002/health',
                 expect.any(Object)
             )
             expect(res.status).toHaveBeenCalledWith(200)
