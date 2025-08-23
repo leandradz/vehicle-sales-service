@@ -87,12 +87,15 @@ export class HealthCheckController {
      */
     public async salesHealthCheck(req: Request, res: Response): Promise<void> {
         try {
-            const response = await fetch(`http://sales-service:3001/health`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+            const response = await fetch(
+                `http://vehicle-sales-service:3001/health`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
 
             if (!response.ok) {
                 throw new Error(

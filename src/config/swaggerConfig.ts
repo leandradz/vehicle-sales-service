@@ -8,8 +8,7 @@ const swaggerOptions = {
         info: {
             title: 'Fase 4: Vehicle Manager Service API',
             version: '1.0.0',
-            description:
-                'Fase 4: API para gerenciar cadastro de veículos',
+            description: 'Fase 4: API para gerenciar cadastro de veículos',
         },
     },
     apis: ['./src/drivers/web/*.ts'],

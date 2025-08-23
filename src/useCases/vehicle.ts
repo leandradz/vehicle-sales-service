@@ -25,7 +25,10 @@ export class VehicleUseCase {
     }
 
     async update(vehicle: Vehicle): Promise<Vehicle | null> {
-        const updatedVehicle = await this.vehicleRepository.update(vehicle.id, vehicle)
+        const updatedVehicle = await this.vehicleRepository.update(
+            vehicle.id,
+            vehicle
+        )
         if (!updatedVehicle) {
             throw new Error('Failed to update vehicle')
         }

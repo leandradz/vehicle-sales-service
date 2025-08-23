@@ -1,4 +1,4 @@
-# TRABALHO SUB TECH CHALLENGE CURSO SOAT – PÓSTECH 
+# TRABALHO SUB TECH CHALLENGE CURSO SOAT – PÓSTECH
 
 [Apresentação FIAP - Reposição Fase 4]()
 
@@ -12,17 +12,17 @@ negócio.
 
 ## Estrutura do Projeto
 
-- **Backend**: Microsserviço utilizando arquitetura hexagonal.
-- **APIs Implementadas**:
-• Cadastrar um veículo para venda (Marca, modelo, ano, cor, preço);
-• Editar os dados do veículo;
-• Efetuar a venda de um veículo (CPF da pessoa que comprou e data da venda);
-• Disponibilizar um endpoint (webhook) para que a entidade que processa o pagamento
-consiga, a partir do código do pagamento, informar se o pagamento foi efetuado ou
-cancelado;
-• Listagem de veículos à venda, ordenada por preço, do mais barato para o mais caro;
-• Listagem de veículos vendidos, ordenada por preço, do mais barato para o mais caro.
-- **Banco de Dados**: DynamoDB (simulado localmente com LocalStack).
+-   **Backend**: Microsserviço utilizando arquitetura hexagonal.
+-   **APIs Implementadas**:
+    • Cadastrar um veículo para venda (Marca, modelo, ano, cor, preço);
+    • Editar os dados do veículo;
+    • Efetuar a venda de um veículo (CPF da pessoa que comprou e data da venda);
+    • Disponibilizar um endpoint (webhook) para que a entidade que processa o pagamento
+    consiga, a partir do código do pagamento, informar se o pagamento foi efetuado ou
+    cancelado;
+    • Listagem de veículos à venda, ordenada por preço, do mais barato para o mais caro;
+    • Listagem de veículos vendidos, ordenada por preço, do mais barato para o mais caro.
+-   **Banco de Dados**: DynamoDB (simulado localmente com LocalStack).
 
 ## Como Rodar o Projeto Localmente
 
