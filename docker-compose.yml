@@ -7,6 +7,7 @@ services:
             - '3001:3001'
         environment:
             DYNAMODB_ENDPOINT: http://localstack:4566
+            VEHICLE_MANAGER_SERVICE_API: http://vehicle-manager-service:3002
             AWS_REGION: us-east-1
             DYNAMODB_TABLE: Sales
             AWS_ACCESS_KEY_ID: test

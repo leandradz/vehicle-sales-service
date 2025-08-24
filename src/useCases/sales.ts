@@ -43,13 +43,16 @@ export class SalesUseCase {
             throw new Error('Failed to create sale')
         }
 
-        const updatedVehicle = await this.vehicleService.update({
-            ...existingVehicle,
-            saleId: createdSale.saleId,
-            isAvailable: false,
-            saleDate: createdSale.saleDate,
-            clientDocument,
-        })
+        const updatedVehicle = await this.vehicleService.update(
+            existingVehicle.id,
+            {
+                ...existingVehicle,
+                saleId: createdSale.saleId,
+                isAvailable: false,
+                saleDate: createdSale.saleDate,
+                clientDocument,
+            }
+        )
 
         if (!updatedVehicle) {
             throw new Error('Failed to fetch updated vehicle with sale')
