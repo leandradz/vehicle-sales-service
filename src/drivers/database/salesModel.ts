@@ -1,4 +1,5 @@
 import { SalesRepository } from '../../domain/interface/salesRepository'
+import { Sale } from '../../domain/entities/sale'
 import { Vehicle } from '../../domain/entities/vehicle'
 import { DynamoConnection } from '../../config/dynamoConfig'
 import {
@@ -15,50 +16,45 @@ const ddbDocClient = DynamoDBDocumentClient.from(client)
 const TABLE_NAME = process.env.DYNAMODB_TABLE || 'Sales'
 
 export class DynamoSalesRepository implements SalesRepository {
-    async create(vehicle: Vehicle): Promise<Vehicle> {
-        const vehicleData = {
-            ...vehicle,
-            id: crypto.randomUUID(),
-            isAvailable: false,
+    async create(sale: Sale): Promise<Sale> {
+        const saleData = {
+            ...sale,
+            saleId: sale.saleId || crypto.randomUUID(),
         }
-
         const params = {
             TableName: TABLE_NAME,
-            Item: vehicleData,
+            Item: saleData,
         }
         await ddbDocClient.send(new PutCommand(params))
-        return vehicleData
+        return saleData
     }
 
-    async get(vehicleId: string): Promise<Vehicle | null> {
+    async get(saleId: string): Promise<Sale | null> {
         const params = {
             TableName: TABLE_NAME,
-            Key: { id: vehicleId },
+            Key: { saleId },
         }
         const result = await ddbDocClient.send(new GetCommand(params))
-        return result.Item ? (result.Item as Vehicle) : null
+        return result.Item ? (result.Item as Sale) : null
     }
 
-    async update(
-        vehicleId: string,
-        vehicle: Partial<Vehicle>
-    ): Promise<Vehicle> {
+    async update(saleId: string, sale: Sale): Promise<Sale> {
         const updateExp: string[] = []
         const expAttrValues: Record<string, unknown> = {}
-        for (const key in vehicle) {
-            if (key === 'id') continue // Não atualize a chave primária!
+        for (const key in sale) {
+            if (key === 'saleId') continue
             updateExp.push(`${key} = :${key}`)
-            expAttrValues[`:${key}`] = vehicle[key as keyof Vehicle]
+            expAttrValues[`:${key}`] = sale[key as keyof typeof sale]
         }
         const params = {
             TableName: TABLE_NAME,
-            Key: { id: vehicleId },
+            Key: { saleId },
             UpdateExpression: `set ${updateExp.join(', ')}`,
             ExpressionAttributeValues: expAttrValues,
             ReturnValues: 'ALL_NEW' as const,
         }
         const result = await ddbDocClient.send(new UpdateCommand(params))
-        return result.Attributes as Vehicle
+        return result.Attributes as Sale
     }
 
     async listByStatus(isAvailable: boolean): Promise<Vehicle[]> {

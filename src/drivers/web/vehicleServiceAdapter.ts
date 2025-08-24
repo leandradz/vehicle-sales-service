@@ -13,8 +13,18 @@ export class VehicleServiceAdapter implements VehicleServicePort {
         if (!response.ok) {
             return null
         }
-
-        return await response.json()
+        const data = (await response.json()) as Partial<Vehicle>
+        if (!data || !data.id) return null
+        return new Vehicle(
+            data.id,
+            data.brand ?? '',
+            data.model ?? '',
+            data.fabricationDate ?? 0,
+            data.color ?? '',
+            data.price ?? 0,
+            data.isAvailable ?? false,
+            data.saleId ?? null
+        )
     }
 
     async update(
@@ -32,6 +42,18 @@ export class VehicleServiceAdapter implements VehicleServicePort {
             return null
         }
 
-        return await response.json()
+        const data = (await response.json()) as Partial<Vehicle>
+
+        if (!data || !data.id) return null
+        return new Vehicle(
+            data.id,
+            data.brand ?? '',
+            data.model ?? '',
+            data.fabricationDate ?? 0,
+            data.color ?? '',
+            data.price ?? 0,
+            data.isAvailable ?? false,
+            data.saleId ?? null
+        )
     }
 }

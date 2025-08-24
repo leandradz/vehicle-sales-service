@@ -1,9 +1,10 @@
 import express from 'express'
+import { VehicleServiceAdapter } from './drivers/web/vehicleServiceAdapter'
 import { HealthCheckController } from './drivers/web/healthCheckController'
 import { SalesController } from './drivers/web/salesController'
 import swaggerRouter from './config/swaggerConfig'
 import { HealthCheckUseCase } from './useCases/healthCheck'
-import { DynamoSalesRepository } from './drivers/database/vehicleModel'
+import { DynamoSalesRepository } from './drivers/database/salesModel'
 import { SalesUseCase } from './useCases/sales'
 
 class InitProject {
@@ -26,7 +27,11 @@ class InitProject {
     setupRoutes() {
         // Sales configuration
         const salesRepository = new DynamoSalesRepository()
-        const salesUseCase = new SalesUseCase(salesRepository)
+        const vehicleService = new VehicleServiceAdapter(
+            process.env.VEHICLE_MANAGER_SERVICE_API ||
+                'http://vehicle-manager-service:3002'
+        )
+        const salesUseCase = new SalesUseCase(salesRepository, vehicleService)
         const salesController = new SalesController(salesUseCase)
 
         this.express.use('/sales', salesController.setupRoutes())

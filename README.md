@@ -38,7 +38,6 @@ Para iniciar o projeto, você precisará ter o Docker e o Docker Compose instala
 2. Construa e inicie os containers:
 
 ```bash
-    docker run -d -p 4566:4566 -e SERVICES=dynamodb --name localstack localstack/localstack:latest
 
     docker-compose up --build
 ```

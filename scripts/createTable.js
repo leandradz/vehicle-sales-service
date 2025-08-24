@@ -13,8 +13,8 @@ const client = new DynamoDBClient({
 
 const params = {
     TableName: process.env.DYNAMODB_TABLE || 'Sales',
-    AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
-    KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+    AttributeDefinitions: [{ AttributeName: 'saleId', AttributeType: 'S' }],
+    KeySchema: [{ AttributeName: 'saleId', KeyType: 'HASH' }],
     BillingMode: 'PAY_PER_REQUEST',
 }
 

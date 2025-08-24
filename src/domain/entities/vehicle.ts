@@ -9,7 +9,7 @@ export class Vehicle {
         public isAvailable: boolean = false,
         public clientDocument: string | null = null,
         public saleDate: string | null = null,
-        public status: string | null = null,
+        public saleStatus: string | null = null,
         public saleId: string | null = null
     ) {
         this.id = id
@@ -21,7 +21,7 @@ export class Vehicle {
         this.isAvailable = isAvailable
         this.clientDocument = clientDocument
         this.saleDate = saleDate
-        this.status = status
+        this.saleStatus = saleStatus
         this.saleId = saleId
     }
 }

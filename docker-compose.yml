@@ -6,7 +6,7 @@ services:
         ports:
             - '3001:3001'
         environment:
-            DYNAMODB_ENDPOINT: http://localstack:4566
+            DYNAMODB_ENDPOINT: http://localstack:4567
             VEHICLE_MANAGER_SERVICE_API: http://vehicle-manager-service:3002
             AWS_REGION: us-east-1
             DYNAMODB_TABLE: Sales
@@ -14,14 +14,14 @@ services:
             AWS_SECRET_ACCESS_KEY: test
         depends_on:
             - localstack
-        command: sh -c "wait-port localstack:4566 && node /app/scripts/createTable.js && npm start"
+        command: sh -c "wait-port localstack:4567 && node /app/scripts/createTable.js && npm start"
         networks:
             - vehicle-network
 
     localstack:
         image: localstack/localstack:latest
         ports:
-            - '4566:4566'
+            - '4567:4567'
         environment:
             - SERVICES=dynamodb
         volumes:
