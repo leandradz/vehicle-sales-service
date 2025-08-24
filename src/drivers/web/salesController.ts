@@ -10,8 +10,8 @@ export class SalesController {
 
     setupRoutes() {
         this.routes.post('/', this.create.bind(this))
-        this.routes.put('/:vehicleId', this.update.bind(this))
-        this.routes.get('/:vehicleId', this.findById.bind(this))
+        this.routes.put('/:saleId', this.update.bind(this))
+        this.routes.get('/:saleId', this.findById.bind(this))
         return this.routes
     }
 

@@ -4,12 +4,12 @@ export class Sale {
         public vehicleId: string,
         public clientDocument: string,
         public saleDate: string,
-        public status: string
+        public saleStatus: string
     ) {
         this.saleId = saleId
         this.vehicleId = vehicleId
         this.clientDocument = clientDocument
         this.saleDate = saleDate
-        this.status = status
+        this.saleStatus = saleStatus
     }
 }

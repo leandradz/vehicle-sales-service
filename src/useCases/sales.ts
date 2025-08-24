@@ -37,24 +37,25 @@ export class SalesUseCase {
             clientDocument,
             saleId: crypto.randomUUID(),
             saleDate: new Date().toISOString(),
-            status: STATUS.AWAITING_PAYMENT,
+            saleStatus: STATUS.AWAITING_PAYMENT,
         })
         if (!createdSale) {
             throw new Error('Failed to create sale')
         }
-
-        const updatedVehicle = await this.vehicleService.update({
-            ...existingVehicle,
-            saleId: createdSale.saleId,
-            isAvailable: false,
-            saleDate: createdSale.saleDate,
-            clientDocument,
-        })
+        const updatedVehicle = await this.vehicleService.update(
+            existingVehicle.id,
+            {
+                ...existingVehicle,
+                saleId: createdSale.saleId,
+                isAvailable: false,
+                saleDate: createdSale.saleDate,
+                clientDocument,
+            }
+        )
 
         if (!updatedVehicle) {
             throw new Error('Failed to fetch updated vehicle with sale')
         }
-
         return createdSale
     }
 
@@ -63,6 +64,14 @@ export class SalesUseCase {
         if (!updatedSale) {
             throw new Error('Failed to update sale')
         }
+
+        if (updatedSale.saleStatus === STATUS.CANCELLED) {
+            await this.vehicleService.update(updatedSale.vehicleId, {
+                saleId: '',
+                isAvailable: true,
+            })
+        }
+
         return updatedSale
     }
 }
