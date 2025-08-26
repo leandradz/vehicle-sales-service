@@ -4,11 +4,15 @@ on:
     push:
         branches:
             - main
+    pull_request:
+        branches:
+            - '*'
 
 jobs:
     build-test:
         name: Build, Test and Validate
         runs-on: ubuntu-latest
+        if: github.event_name == 'push'
         services:
             localstack:
                 image: localstack/localstack:latest
@@ -16,16 +20,13 @@ jobs:
                     - 4566:4566
                 env:
                     SERVICES: dynamodb
-
         steps:
             - name: Checkout repository
               uses: actions/checkout@v3
-
             - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
                   node-version: '20'
-
             - name: Set environment variables
               run: |
                   echo "DYNAMODB_ENDPOINT=http://localhost:4566" >> $GITHUB_ENV
@@ -33,23 +34,39 @@ jobs:
                   echo "DYNAMODB_TABLE=Vehicles" >> $GITHUB_ENV
                   echo "AWS_ACCESS_KEY_ID=test" >> $GITHUB_ENV
                   echo "AWS_SECRET_ACCESS_KEY=test" >> $GITHUB_ENV
-
             - name: Wait for LocalStack
               run: |
                   until nc -z localhost 4566; do sleep 1; done
-
             - name: Install root dependencies
               run: npm install
-
             - name: Create DynamoDB table
               run: node scripts/createTable.js
-
             - name: Run lint
               run: npm run lint
-
             - name: Run tests
               run: npm test
+            - name: Install SonarScanner
+              run: npm install -g sonar-scanner
+            - name: Run SonarQube analysis
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              run: sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
+    sonarcloud-pr:
+        name: SonarCloud Analysis (PR)
+        runs-on: ubuntu-latest
+        if: github.event_name == 'pull_request'
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20'
+            - name: Install dependencies
+              run: npm install
+            - name: Run tests (gera cobertura)
+              run: npm test
             - name: Install SonarScanner
               run: npm install -g sonar-scanner
             - name: Run SonarQube analysis
