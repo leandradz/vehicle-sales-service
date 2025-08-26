@@ -31,8 +31,7 @@ class InitProject {
         // Sales configuration
         const salesRepository = new DynamoSalesRepository()
         const vehicleService = new VehicleServiceAdapter(
-            process.env.VEHICLE_MANAGER_SERVICE_API ||
-                'http://vehicle-manager-service:3002'
+            process.env.VEHICLE_MANAGER_SERVICE_API || ''
         )
         const salesUseCase = new SalesUseCase(salesRepository, vehicleService)
         const salesController = new SalesController(salesUseCase)
