@@ -6,6 +6,9 @@ import swaggerRouter from './config/swaggerConfig'
 import { HealthCheckUseCase } from './useCases/healthCheck'
 import { DynamoSalesRepository } from './drivers/database/salesModel'
 import { SalesUseCase } from './useCases/sales'
+import { PaymentWebhookController } from './drivers/web/paymentWebhookController'
+import { PaymentUseCase } from './useCases/payment'
+import { MercadoPagoController } from './drivers/web/mercadoPagoController'
 
 class InitProject {
     public express: express.Application
@@ -35,6 +38,19 @@ class InitProject {
         const salesController = new SalesController(salesUseCase)
 
         this.express.use('/sales', salesController.setupRoutes())
+
+        // Mercado Pago configuration
+        const mercadoPagoController = new MercadoPagoController()
+
+        // Payment configuration
+        const paymentUseCase = new PaymentUseCase(
+            mercadoPagoController,
+            salesRepository
+        )
+        const paymentWebhookController = new PaymentWebhookController(
+            paymentUseCase
+        )
+        this.express.use('/payment', paymentWebhookController.setupRoutes())
 
         // Health Check and Swagger configuration
         const healthCheckUseCase = new HealthCheckUseCase()

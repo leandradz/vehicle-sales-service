@@ -12,6 +12,11 @@ services:
             DYNAMODB_TABLE: Sales
             AWS_ACCESS_KEY_ID: test
             AWS_SECRET_ACCESS_KEY: test
+            MERCADO_PAGO_API: ${MERCADO_PAGO_API}
+            MERCADO_PAGO_CLIENT_SECRET: ${MERCADO_PAGO_CLIENT_SECRET}
+            MERCADO_PAGO_CLIENT_ID: ${MERCADO_PAGO_CLIENT_ID}
+            MERCADO_PAGO_QR_CODE_API: ${MERCADO_PAGO_QR_CODE_API}
+            MERCADO_PAGO_WEBHOOK:
         depends_on:
             - localstack
         command: sh -c "wait-port localstack:4567 && node /app/scripts/createTable.js && npm start"
