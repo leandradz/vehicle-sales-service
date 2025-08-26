@@ -32,12 +32,17 @@ export class SalesUseCase {
             throw new Error('Vehicle does not exist in vehicle-manager-service')
         }
 
+        const saleId = crypto.randomUUID()
         const createdSale = await this.salesRepository.create({
             vehicleId,
             clientDocument,
-            saleId: crypto.randomUUID(),
+            saleId,
             saleDate: new Date().toISOString(),
-            saleStatus: STATUS.AWAITING_PAYMENT,
+            saleStatus: STATUS.REQUEST_RECEIVED,
+            payment: {
+                paymentLink: '',
+                total: existingVehicle.price,
+            },
         })
         if (!createdSale) {
             throw new Error('Failed to create sale')
