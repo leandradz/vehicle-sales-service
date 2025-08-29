@@ -1,4 +1,112 @@
 import { Router, Request, Response } from 'express'
+
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: Cria uma nova venda
+ *     description: Cria uma venda de veículo para um cliente.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               vehicleId:
+ *                 type: string
+ *                 example: "abc123"
+ *               clientDocument:
+ *                 type: string
+ *                 example: "12345678900"
+ *     responses:
+ *       201:
+ *         description: Venda criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       500:
+ *         description: Falha ao criar venda
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to create sale
+ */
+
+/**
+ * @swagger
+ * /{saleId}:
+ *   get:
+ *     summary: Busca uma venda pelo ID
+ *     description: Retorna os dados de uma venda específica.
+ *     parameters:
+ *       - in: path
+ *         name: saleId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID da venda
+ *     responses:
+ *       200:
+ *         description: Venda encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       500:
+ *         description: Falha ao buscar venda
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to find sale
+ */
+
+/**
+ * @swagger
+ * /{saleId}:
+ *   put:
+ *     summary: Atualiza uma venda
+ *     description: Atualiza os dados de uma venda existente.
+ *     parameters:
+ *       - in: path
+ *         name: saleId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID da venda
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Venda atualizada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       500:
+ *         description: Falha ao atualizar venda
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to update sale
+ */
 import { SalesUseCase } from '../../useCases/sales'
 
 export class SalesController {
