@@ -1,4 +1,84 @@
 import { Router, Request, Response } from 'express'
+
+/**
+ * @swagger
+ * /payment/webhook:
+ *   post:
+ *     summary: Recebe notificações de pagamento (webhook)
+ *     description: Processa notificações de pagamento enviadas por provedores externos.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Webhook processado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: Webhook processed
+ *       500:
+ *         description: Falha ao processar webhook
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to process payment webhook
+ */
+
+/**
+ * @swagger
+ * /payment/create:
+ *   post:
+ *     summary: Cria um pagamento para uma venda
+ *     description: Cria o registro de pagamento vinculado a uma venda existente.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               saleId:
+ *                 type: string
+ *                 example: "12345"
+ *     responses:
+ *       201:
+ *         description: Pagamento criado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       400:
+ *         description: saleId ausente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: saleId is required
+ *       500:
+ *         description: Falha ao criar pagamento
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to create payment
+ */
 import { PaymentUseCase } from '../../useCases/payment'
 
 export class PaymentWebhookController {

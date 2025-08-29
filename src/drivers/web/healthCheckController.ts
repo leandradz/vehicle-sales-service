@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express'
+
 import { HealthCheckUseCase } from '../../useCases/healthCheck'
 
 export class HealthCheckController {
