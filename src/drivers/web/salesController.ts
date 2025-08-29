@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express'
 
 /**
  * @swagger
- * /:
+ * /sales/:
  *   post:
  *     summary: Cria uma nova venda
  *     description: Cria uma venda de veículo para um cliente.
@@ -40,7 +40,7 @@ import { Router, Request, Response } from 'express'
 
 /**
  * @swagger
- * /{saleId}:
+ * /sales/{saleId}:
  *   get:
  *     summary: Busca uma venda pelo ID
  *     description: Retorna os dados de uma venda específica.
@@ -72,7 +72,7 @@ import { Router, Request, Response } from 'express'
 
 /**
  * @swagger
- * /{saleId}:
+ * /sales/{saleId}:
  *   put:
  *     summary: Atualiza uma venda
  *     description: Atualiza os dados de uma venda existente.

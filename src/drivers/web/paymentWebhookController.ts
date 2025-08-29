@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express'
 
 /**
  * @swagger
- * /webhook:
+ * /payment/webhook:
  *   post:
  *     summary: Recebe notificações de pagamento (webhook)
  *     description: Processa notificações de pagamento enviadas por provedores externos.
@@ -37,7 +37,7 @@ import { Router, Request, Response } from 'express'
 
 /**
  * @swagger
- * /create:
+ * /payment/create:
  *   post:
  *     summary: Cria um pagamento para uma venda
  *     description: Cria o registro de pagamento vinculado a uma venda existente.
